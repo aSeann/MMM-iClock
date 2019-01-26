@@ -22,7 +22,6 @@ Module.register("MMM-iClock", {
         if(minute < 10) minute = "0" + minute;
         document.getElementById('iTime').innerHTML = hour + ":" + minute;
         document.getElementById('iDate').innerHTML = days[day] + " " + date + " " + months[month];
-        Log.info("Updated Clock1");
         setTimeout(updateClock, wait * 1000);
     }
     setTimeout(updateClock, 1000);

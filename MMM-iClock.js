@@ -12,20 +12,17 @@ Module.register("MMM-iClock", {
     Log.info("Starting module: " + this.name);
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    var wait = 60;
-    updateClock = function(killwait = false) {
+    updateClock = function(){
+      var wait = 60;
       now = new Date();
       hour = now.getHours(), minute = now.getMinutes(), second = now.getSeconds(), day = now.getDay(), date = now.getDate(), month = now.getMonth();
-      if(!killwait)
-        wait -= second;
-      else wait = 60;
+      wait -= second;
       var element =  document.getElementById('iClock');
-      if(typeof(element) == 'undefined' || element == null){
         if(hour < 10) hour = "0" + hour;
         if(minute < 10) minute = "0" + minute;
         document.getElementById('iTime').innerHTML = hour + ":" + minute;
         document.getElementById('iDate').innerHTML = days[day] + " " + date + " " + months[month];
-      } else wait = 0.1;
+        Log.info("Updated Clock1");
         setTimeout(updateClock, wait * 1000);
     }
     setTimeout(updateClock, 1000);

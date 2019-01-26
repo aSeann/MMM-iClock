@@ -17,7 +17,6 @@ Module.register("MMM-iClock", {
       now = new Date();
       hour = now.getHours(), minute = now.getMinutes(), second = now.getSeconds(), day = now.getDay(), date = now.getDate(), month = now.getMonth();
       wait -= second;
-      var element =  document.getElementById('iClock');
         if(hour < 10) hour = "0" + hour;
         if(minute < 10) minute = "0" + minute;
         document.getElementById('iTime').innerHTML = hour + ":" + minute;

@@ -1,3 +1,5 @@
+var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 Module.register("MMM-iClock", {
   defaults: {
     timeFormat: config.timeFormat,
@@ -10,20 +12,7 @@ Module.register("MMM-iClock", {
   },
   start: function(){
     Log.info("Starting module: " + this.name);
-    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    updateClock = function(){
-      var wait = 60;
-      now = new Date();
-      hour = now.getHours(), minute = now.getMinutes(), second = now.getSeconds(), day = now.getDay(), date = now.getDate(), month = now.getMonth();
-      wait -= second;
-        if(hour < 10) hour = "0" + hour;
-        if(minute < 10) minute = "0" + minute;
-        document.getElementById('iTime').innerHTML = hour + ":" + minute;
-        document.getElementById('iDate').innerHTML = days[day] + " " + date + " " + months[month];
-        setTimeout(updateClock, wait * 1000);
-    }
-    setTimeout(updateClock, 1000);
+    setTimeout(this.updateClock, 1000);
   },
   getDom: function(){
     var wrapper = document.createElement("div");
@@ -37,5 +26,16 @@ Module.register("MMM-iClock", {
     calendar.className = "normal";
     wrapper.appendChild(calendar);
     return wrapper;
-  }
+  },
+  updateClock: function(){
+    var wait = 60;
+    now = new Date();
+    hour = now.getHours(), minute = now.getMinutes(), second = now.getSeconds(), day = now.getDay(), date = now.getDate(), month = now.getMonth();
+    wait -= second;
+    if(hour < 10) hour = "0" + hour;
+    if(minute < 10) minute = "0" + minute;
+    document.getElementById('iTime').innerHTML = hour + ":" + minute;
+    document.getElementById('iDate').innerHTML = this.days[day] + " " + date + " " + this.months[month];
+    setTimeout(this.updateClock, wait * 1000);
+  },
 });

@@ -1,4 +1,4 @@
-# MMM-Showtimes - Local Cinema Showtimes for MagicMirror²
+# MMM-iClock - Live Clock module with updates on the minute every minute for MagicMirror²
 
 This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror/).
 

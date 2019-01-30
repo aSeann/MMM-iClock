@@ -1,5 +1,8 @@
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+var iClock;
+var firstMinute = true;
+var lastDay;
 Module.register("MMM-iClock", {
   defaults: {
     timeFormat: config.timeFormat,
@@ -11,8 +14,9 @@ Module.register("MMM-iClock", {
     return ["MMM-iClock.css"];
   },
   start: function(){
-    Log.info("Starting module: " + this.name);
-    setTimeout(this.updateClock, 1000);
+    iClock = this;
+    Log.info("Starting module: " + iClock.name);
+    setTimeout(iClock.updateClock, 1000);
   },
   getDom: function(){
     var wrapper = document.createElement("div");
@@ -32,10 +36,18 @@ Module.register("MMM-iClock", {
     now = new Date();
     hour = now.getHours(), minute = now.getMinutes(), second = now.getSeconds(), day = now.getDay(), date = now.getDate(), month = now.getMonth();
     wait -= second;
+    if(minute % 5 === 0 || firstMinute){
+      if(firstMinute) firstMinute = false;
+        iClock.sendNotification("iCLOCK_5_MIN", {hour: hour, minute: minute}, iClock);
+      if(lastDay !== day){
+        iClock.sendNotification("iCLOCK_MIDNIGHT", {hour: hour, minute: minute}, iClock);
+        lastDay = day;
+      }
+    }
     if(hour < 10) hour = "0" + hour;
     if(minute < 10) minute = "0" + minute;
     document.getElementById('iTime').innerHTML = hour + ":" + minute;
-    document.getElementById('iDate').innerHTML = this.days[day] + " " + date + " " + this.months[month];
-    setTimeout(this.updateClock, wait * 1000);
+    document.getElementById('iDate').innerHTML = days[day] + " " + date + " " + months[month];
+    setTimeout(iClock.updateClock, wait * 1000);
   },
 });

@@ -1,15 +1,124 @@
-.iClock #iDate,
-.iClock #iTime{
-  font-family:'Titillium Web', sans-serif;
+:root{
+  --back: #000;
+  --fore: #00D6FF;
+  --size:350px;
+  --glow:0 0 8px var(--fore);
+}
+.iClock{
   position:relative;
   display:block;
-  width:100%;
-	text-align:center;
-	font-size:75px;
-	white-space:nowrap;
-  font-weight:normal;
+  width:var(--size);
+  height:var(--size);
+  border-radius:350px;
 }
-.iClock #iDate{
-	font-size:20px;
-  font-weight:500;
+.iClock .x:after,
+.iClock .x:before,
+.iClock .x .y:after,
+.iClock .x .y:before,
+.iClock .x .y .z:after,
+.iClock .x .y .z:before{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width:2px;
+  height:100%;
+  background:var(--fore);
+}
+.iClock:after{
+  transform:translate(-50%, -50%) rotate(90deg);
+  z-index:1;
+}
+.iClock .x:before{
+    transform:translate(-50%, -50%) rotate(30deg);
+}
+.iClock .x:after{
+    transform:translate(-50%, -50%) rotate(60deg);
+}
+.iClock .x .y:before{
+    transform:translate(-50%, -50%) rotate(120deg);
+}
+.iClock .x .y:after{
+    transform:translate(-50%, -50%) rotate(150deg);
+}
+.iClock .x .y .z:before{
+    transform:translate(-50%, -50%) rotate(0deg);
+}
+.iClock .x .y .z:after{
+    transform:translate(-50%, -50%) rotate(90deg);
+}
+.iClock .x .y .overlay{
+    position:absolute;
+    width:91%;
+    height:91%;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    background:var(--back);
+    border-radius:300px;
+    z-index:2;
+}
+.iClock .x .y .overlay .hour,
+.iClock .x .y .overlay .minute,
+.iClock .x .y .overlay .second{
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:calc(100% + 40px);
+    height:calc(100% + 40px);
+    border-radius:350px;
+    transform:translate(-50%, -50%);
+    border:2px solid var(--fore);
+    box-shadow:var(--glow);
+}
+.iClock .x .y .overlay .hour:after,
+.iClock .x .y .overlay .minute:after,
+.iClock .x .y .overlay .second:after{
+    content:"";
+    position:absolute;
+    width:10px;
+    height:15px;
+    top:-8px;
+    left:50%;
+    transform:translate(-50%);
+    background:var(--back);
+}
+.iClock .x .y .overlay .minute{
+    width:calc(100% - 18px);
+    height:calc(100% - 18px);
+}
+.iClock .x .y .overlay .second{
+    width:calc(100% - 50px);
+    height:calc(100% - 50px);
+}
+.iClock .time{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    text-align:center;
+    font-family: 'Titillium Web', sans-serif;
+    text-align:center;
+    font-size:75px;
+    white-space:nowrap;
+    font-weight:500;
+    line-height:60px;
+    text-shadow:var(--glow);
+    color:var(--fore);
+}
+.iClock .x .y .overlay .hour,
+.iClock .x .y .overlay .minute,
+.iClock .x .y .overlay .second,
+.iClock .time{
+  transition:1s cubic-bezier(.4, 0, .2, 1);
+  -o-transition:1s cubic-bezier(.4, 0, .2, 1);
+  -ms-transition:1s cubic-bezier(.4, 0, .2, 1);
+  -moz-transition:1s cubic-bezier(.4, 0, .2, 1);
+  -webkit-transition:1s cubic-bezier(.4, 0, .2, 1);
+}
+.iClock .time .date{
+    font-size:20px;
+    line-height:25px;
+    text-align:center;
 }
